@@ -2,10 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using LootLocker.Requests;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+
     private void Awake()
     {
         if (Instance != null)
@@ -26,7 +28,6 @@ public class GameManager : MonoBehaviour
         gameState = _gamestate;
         OnStateChange?.Invoke(_gamestate);
     }
-
 }
 public enum GameState
 {
