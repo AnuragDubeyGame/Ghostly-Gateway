@@ -20,7 +20,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject _scoreUI;
 
     [SerializeField] private Button _submitButton;
-    [SerializeField] private Button _showLeaderboard;
     [SerializeField] private TMP_InputField _playerNameInputField;
 
     [SerializeField] private List<TextMeshProUGUI> _entriesFields = new List<TextMeshProUGUI>();
@@ -70,6 +69,7 @@ public class UIManager : MonoBehaviour
                 ChangeGameObjectVisisbility(_playerNameInputField.gameObject, true);
             }
             CalculateScore();
+            OnShowLeaderboard?.Invoke(_entriesFields);
 
         }
     }
@@ -83,7 +83,7 @@ public class UIManager : MonoBehaviour
     private void CalculateScore()
     {
         _timeSurvived = Mathf.Round(_timeSurvived * 100f) / 100f;
-        _scoreUI.GetComponent<TextMeshProUGUI>().text = $" Survied for {_timeSurvived}s";
+        _scoreUI.GetComponent<TextMeshProUGUI>().text = $" Score : {_timeSurvived}s";
     }
     public void SubmitScore()
     {
@@ -123,10 +123,6 @@ public class UIManager : MonoBehaviour
             OnScoreSubmit?.Invoke(PlayerPrefs.GetString("PlayerName"), _timeSurvived);
         }
 
-    }
-    public void ShowLeaderboard()
-    {
-        OnShowLeaderboard?.Invoke(_entriesFields);
     }
     private void ChangeGameObjectVisisbility(GameObject obj, bool val)
     {
