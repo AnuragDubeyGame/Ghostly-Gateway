@@ -44,29 +44,29 @@ public class UIManager : MonoBehaviour
     {
         if(obj == GameState.Idle)
         {
-            ChangeGameObjectVisisbility(_instuction, true);
-            ChangeGameObjectVisisbility(_deathMenu, false);
-            ChangeGameObjectVisisbility(_submitButton.gameObject, false);
-            ChangeGameObjectVisisbility(_playerNameInputField.gameObject, false);
+            StartCoroutine(ChangeGameObjectVisisbility(_instuction, true,0));
+            StartCoroutine(ChangeGameObjectVisisbility(_deathMenu, false, 0));
+            StartCoroutine(ChangeGameObjectVisisbility(_submitButton.gameObject, false,0));
+            StartCoroutine(ChangeGameObjectVisisbility(_playerNameInputField.gameObject, false,0));
             _timeSurvived = 0f;
         }
         else if(obj == GameState.Running)
         {
-            ChangeGameObjectVisisbility(_instuction, false);
-            ChangeGameObjectVisisbility(_deathMenu, false);
-            ChangeGameObjectVisisbility(_submitButton.gameObject, false);
-            ChangeGameObjectVisisbility(_playerNameInputField.gameObject, false);
+            StartCoroutine(ChangeGameObjectVisisbility(_instuction, false,0));
+            StartCoroutine(ChangeGameObjectVisisbility(_deathMenu, false,0));
+            StartCoroutine(ChangeGameObjectVisisbility(_submitButton.gameObject, false,0));
+            StartCoroutine(ChangeGameObjectVisisbility(_playerNameInputField.gameObject, false,0));
 
         }
         else if(obj == GameState.Death)
         {
-            ChangeGameObjectVisisbility(_instuction, false);
-            ChangeGameObjectVisisbility(_deathMenu, true);
-            ChangeGameObjectVisisbility(_submitButton.gameObject, true);
+            StartCoroutine(ChangeGameObjectVisisbility(_instuction, false,0));
+            StartCoroutine(ChangeGameObjectVisisbility(_deathMenu, true,0.45f));
+            StartCoroutine(ChangeGameObjectVisisbility(_submitButton.gameObject, true,0));
             _leaderboardManager.FetchLeaderboardData(_entriesFields);
             if (_isFirstTime == 0)
             {
-                ChangeGameObjectVisisbility(_playerNameInputField.gameObject, true);
+                StartCoroutine(ChangeGameObjectVisisbility(_playerNameInputField.gameObject, true,0));
             }
             CalculateScore();
             OnShowLeaderboard?.Invoke(_entriesFields);
@@ -124,8 +124,9 @@ public class UIManager : MonoBehaviour
         }
 
     }
-    private void ChangeGameObjectVisisbility(GameObject obj, bool val)
+    private IEnumerator ChangeGameObjectVisisbility(GameObject obj, bool val, float Delay)
     {
+        yield return new WaitForSeconds(Delay);
         if(val)
         {
             obj.gameObject.SetActive(true);
