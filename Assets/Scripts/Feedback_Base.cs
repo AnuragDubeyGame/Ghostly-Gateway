@@ -5,7 +5,6 @@ using System.Collections;
 using Cinemachine;
 using UnityEngine.Rendering;
 using UnityEngine.Events;
-using static UnityEditor.PlayerSettings;
 
 [System.Serializable]
 public class Feedback_Base : MonoBehaviour
